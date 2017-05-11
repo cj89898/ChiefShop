@@ -7,8 +7,6 @@ import org.spongepowered.api.text.Text;
 import net.cjervers.ChiefShop;
 import net.cjervers.utilities.Utils;
 
-
-
 public class Shop {
 	
 	private String name;
@@ -24,12 +22,14 @@ public class Shop {
 		inv = Utils.getShopBuilder().property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(name)))
 				.build(ChiefShop.getPlugin());
 	}
-
 	
 	public String getName() {
 		return name;
 	}
-
+	
+	public double getCost() {
+		return cost;
+	}
 	
 	public Inventory getInv() {
 		return inv;

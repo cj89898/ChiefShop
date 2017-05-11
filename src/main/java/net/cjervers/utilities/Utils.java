@@ -26,9 +26,8 @@ public class Utils {
 	
 	public static void createShops() {
 		try {
-			for (ConfigurationNode shopNode : conf.getNode("shops").getChildrenList()) {
-				Shop shop = shopNode.getValue(TypeToken.of(Shop.class));
-				plugin.getLogger().info(shop.getName());
+			for (Shop shop : conf.getNode("shops").getList(TypeToken.of(Shop.class))) {
+				plugin.getLogger().info(shop.getName() + " " + shop.getCost());
 			}
 		} catch (ObjectMappingException e) {
 			// TODO Auto-generated catch block

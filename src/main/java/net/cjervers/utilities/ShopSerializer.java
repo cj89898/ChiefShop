@@ -10,7 +10,7 @@ public class ShopSerializer implements TypeSerializer<Shop>{
 
 	@Override
 	public Shop deserialize(TypeToken<?> type, ConfigurationNode value) throws ObjectMappingException {
-		String name = value.getKey().toString();
+		String name = value.getString();
 		double cost = value.getNode("cost").getDouble();
 		return new Shop(name, cost);
 	}
