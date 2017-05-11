@@ -14,7 +14,9 @@ import org.spongepowered.api.plugin.Plugin;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 
+import net.cjervers.utilities.ItemSerializer;
 import net.cjervers.utilities.Shop;
+import net.cjervers.utilities.ShopItem;
 import net.cjervers.utilities.ShopSerializer;
 import net.cjervers.utilities.Utils;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -44,6 +46,7 @@ public class ChiefShop {
 		plugin = this;
 		createConfig();
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Shop.class), new ShopSerializer());
+		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(ShopItem.class), new ItemSerializer());
 		Utils.createShops();
 	}
 	

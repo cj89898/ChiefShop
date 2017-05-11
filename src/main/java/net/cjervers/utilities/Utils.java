@@ -29,7 +29,7 @@ public class Utils {
 		try {
 			for (Entry<Object, ? extends ConfigurationNode> entry : conf.getNode("shops").getChildrenMap().entrySet()) {
 				Shop shop = entry.getValue().getValue(TypeToken.of(Shop.class));
-				plugin.getLogger().info(shop.getName() + " " + shop.getCost());
+				plugin.getLogger().info(shop.getName() + " " + shop.getShopItems());
 			}
 		} catch (ObjectMappingException e) {
 			// TODO Auto-generated catch block

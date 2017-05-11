@@ -1,10 +1,27 @@
 {
 	"shops": {
 		"default": {
-			"cost": 5.0
+			"items": [{
+					"ItemType": "minecraft:diamond_sword",
+					"Amount": 1,
+					"Cost": 50,
+					"Damage": 0
+				}, {
+					"ItemType": "minecraft:diamond_axe",
+					"Amount": 1,
+					"Cost": 50,
+					"Damage": 0
+				}
+			]
 		},
 		"example2": {
-			"cost": 10.0
+			"items": [{
+					"ItemType": "minecraft:diamond_pick",
+					"Amount": 1,
+					"Cost": 50,
+					"Damage": 0
+				}
+			]
 		}
 	}
 }

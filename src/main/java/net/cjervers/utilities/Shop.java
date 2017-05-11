@@ -1,5 +1,7 @@
 package net.cjervers.utilities;
 
+import java.util.List;
+
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.text.Text;
@@ -11,11 +13,11 @@ public class Shop {
 	
 	private String name;
 	private Inventory inv;
-	private double cost;
+	private List<ShopItem> shopItems;
 	
-	public Shop(String name, double cost) {
+	public Shop(String name, List<ShopItem> shopItems) {
 		this.name = name;
-		this.cost = cost;
+		this.shopItems = shopItems;
 	}
 	
 	public void refresh() {
@@ -27,8 +29,8 @@ public class Shop {
 		return name;
 	}
 	
-	public double getCost() {
-		return cost;
+	public List<ShopItem> getShopItems() {
+		return shopItems;
 	}
 	
 	public Inventory getInv() {
