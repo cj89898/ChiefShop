@@ -1,4 +1,4 @@
-package main.java.net.cjervers.utilities;
+package net.cjervers.utilities;
 
 import java.util.Map;
 
@@ -7,7 +7,8 @@ import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryArchetypes;
 import org.spongepowered.api.item.inventory.property.InventoryDimension;
 
-import main.java.net.cjervers.ChiefShop;
+import net.cjervers.ChiefShop;
+import net.cjervers.utilities.Shop;
 import ninja.leaping.configurate.ConfigurationNode;
 
 public class Utils {

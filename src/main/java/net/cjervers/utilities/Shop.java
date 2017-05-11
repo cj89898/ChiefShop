@@ -1,10 +1,13 @@
-package main.java.net.cjervers.utilities;
+package net.cjervers.utilities;
 
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.text.Text;
 
-import main.java.net.cjervers.ChiefShop;
+import net.cjervers.ChiefShop;
+import net.cjervers.utilities.Utils;
+
+
 
 public class Shop {
 	

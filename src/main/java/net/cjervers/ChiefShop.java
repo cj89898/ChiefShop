@@ -1,4 +1,4 @@
-package main.java.net.cjervers;
+package net.cjervers;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +16,7 @@ import com.google.inject.Inject;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
+import ninja.leaping.configurate.gson.GsonConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 @Plugin(id = "chiefshop", name = "Chief Shop", version = "1.0.0")
@@ -44,7 +44,7 @@ public class ChiefShop {
 	@Inject
 	@ConfigDir(sharedRoot = false)
 	private Path configDir;
-	private ConfigurationLoader<CommentedConfigurationNode> confLoader;
+	private ConfigurationLoader<ConfigurationNode> confLoader;
 	private ConfigurationNode conf;
 	
 	public void createConfig() {
@@ -63,7 +63,7 @@ public class ChiefShop {
 				e.printStackTrace();
 			}
 		}
-		this.confLoader = HoconConfigurationLoader.builder().setPath(configFile).build();
+		this.confLoader = GsonConfigurationLoader.builder().setPath(configFile).build();
 		conf = confLoader.createEmptyNode(ConfigurationOptions.defaults());
 		loadConfig();
 		saveConfig();

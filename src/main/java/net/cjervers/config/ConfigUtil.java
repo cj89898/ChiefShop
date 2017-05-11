@@ -1,4 +1,4 @@
-package main.java.net.cjervers.config;
+package net.cjervers.config;
 
 public class ConfigUtil {
 	
