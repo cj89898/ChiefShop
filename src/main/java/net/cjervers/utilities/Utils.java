@@ -23,7 +23,7 @@ public class Utils {
 	}
 	
 	public static void createShops() {
-		plugin.getLogger().warn(conf.getNode("").toString());
+		plugin.getLogger().debug(conf.getNode("shops").toString());
 	}
 	
 	public static void openShop(Player player, Shop shop) {

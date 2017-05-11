@@ -13,6 +13,7 @@ import org.spongepowered.api.plugin.Plugin;
 
 import com.google.inject.Inject;
 
+import net.cjervers.utilities.Utils;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
@@ -31,7 +32,7 @@ public class ChiefShop {
 		return plugin;
 	}
 	
-	public static Logger getLogger() {
+	public Logger getLogger() {
 		return logger;
 	}
 	
@@ -39,6 +40,7 @@ public class ChiefShop {
 	public void init(GameInitializationEvent event) {
 		plugin = this;
 		createConfig();
+		Utils.createShops();
 	}
 	
 	@Inject
