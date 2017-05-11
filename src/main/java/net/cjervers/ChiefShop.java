@@ -11,14 +11,17 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 
+import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 
+import net.cjervers.utilities.Shop;
+import net.cjervers.utilities.ShopSerializer;
 import net.cjervers.utilities.Utils;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.gson.GsonConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 
 @Plugin(id = "chiefshop", name = "Chief Shop", version = "1.0.0")
 public class ChiefShop {
@@ -26,7 +29,7 @@ public class ChiefShop {
 	private static ChiefShop plugin;
 	
 	@Inject
-	private static Logger logger;
+	private Logger logger;
 	
 	public static ChiefShop getPlugin() {
 		return plugin;
@@ -40,6 +43,7 @@ public class ChiefShop {
 	public void init(GameInitializationEvent event) {
 		plugin = this;
 		createConfig();
+		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Shop.class), new ShopSerializer());
 		Utils.createShops();
 	}
 	

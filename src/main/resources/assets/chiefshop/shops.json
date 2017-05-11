@@ -2,6 +2,9 @@
 	"shops": {
 		"default": {
 			"cost": 0.0
+		},
+		"example2": {
+			"cost": 1.0
 		}
 	}
 }

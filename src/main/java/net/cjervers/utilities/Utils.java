@@ -7,9 +7,11 @@ import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryArchetypes;
 import org.spongepowered.api.item.inventory.property.InventoryDimension;
 
+import com.google.common.reflect.TypeToken;
+
 import net.cjervers.ChiefShop;
-import net.cjervers.utilities.Shop;
 import ninja.leaping.configurate.ConfigurationNode;
+import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 
 public class Utils {
 	
@@ -23,7 +25,15 @@ public class Utils {
 	}
 	
 	public static void createShops() {
-		plugin.getLogger().debug(conf.getNode("shops").toString());
+		try {
+			for (ConfigurationNode shopNode : conf.getNode("shops").getChildrenList()) {
+				Shop shop = shopNode.getValue(TypeToken.of(Shop.class));
+				plugin.getLogger().info(shop.getName());
+			}
+		} catch (ObjectMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void openShop(Player player, Shop shop) {

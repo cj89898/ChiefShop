@@ -13,9 +13,11 @@ public class Shop {
 	
 	private String name;
 	private Inventory inv;
+	private double cost;
 	
-	public Shop(String name) {
+	public Shop(String name, double cost) {
 		this.name = name;
+		this.cost = cost;
 	}
 	
 	public void refresh() {
