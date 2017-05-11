@@ -1,10 +1,10 @@
 {
 	"shops": {
 		"default": {
-			"cost": 0.0
+			"cost": 5.0
 		},
 		"example2": {
-			"cost": 1.0
+			"cost": 10.0
 		}
 	}
 }

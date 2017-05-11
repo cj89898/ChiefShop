@@ -1,6 +1,7 @@
 package net.cjervers.utilities;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.Inventory;
@@ -20,13 +21,14 @@ public class Utils {
 	private static ConfigurationNode conf = plugin.getConfig();
 	
 	public static Inventory.Builder getShopBuilder() {
-		return Inventory.builder().of(InventoryArchetypes.CHEST).property(InventoryDimension.PROPERTY_NAM,
+		return Inventory.builder().of(InventoryArchetypes.CHEST).property(InventoryDimension.PROPERTY_NAME,
 				new InventoryDimension(9, 4));
 	}
 	
 	public static void createShops() {
 		try {
-			for (Shop shop : conf.getNode("shops").getList(TypeToken.of(Shop.class))) {
+			for (Entry<Object, ? extends ConfigurationNode> entry : conf.getNode("shops").getChildrenMap().entrySet()) {
+				Shop shop = entry.getValue().getValue(TypeToken.of(Shop.class));
 				plugin.getLogger().info(shop.getName() + " " + shop.getCost());
 			}
 		} catch (ObjectMappingException e) {
