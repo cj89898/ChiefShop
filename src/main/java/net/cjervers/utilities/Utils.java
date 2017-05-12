@@ -28,12 +28,13 @@ public class Utils {
 	public static void createShops() {
 		try {
 			for (Entry<Object, ? extends ConfigurationNode> entry : conf.getNode("shops").getChildrenMap().entrySet()) {
-				//for (Entry<Object, ? extends ConfigurationNode> entry2 : entry.getValue().getNode("items")
-						//.getChildrenMap().entrySet()) {
-					plugin.getLogger().info(entry.getValue().getNode("items").getChildrenMap().toString());
-					Shop shop = entry.getValue().getValue(TypeToken.of(Shop.class));
-					plugin.getLogger().info(shop.getName() + " " + shop.getShopItems());
-				//}
+				// for (Entry<Object, ? extends ConfigurationNode> entry2 :
+				// entry.getValue().getNode("items")
+				// .getChildrenMap().entrySet()) {
+				//plugin.getLogger().info(entry.getValue().getNode("items").getNode("Cost").getDouble()+"");
+				Shop shop = entry.getValue().getValue(TypeToken.of(Shop.class));
+				//plugin.getLogger().info(shop.getName() + " " + shop.getShopItems());
+				// }
 			}
 		} catch (ObjectMappingException e) {
 			// TODO Auto-generated catch block

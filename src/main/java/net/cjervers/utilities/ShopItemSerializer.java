@@ -6,7 +6,7 @@ import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
 
-public class ItemSerializer implements TypeSerializer<ShopItem>{
+public class ShopItemSerializer implements TypeSerializer<ShopItem>{
 	
 	@Override
 	public ShopItem deserialize(TypeToken<?> type, ConfigurationNode value) throws ObjectMappingException {
