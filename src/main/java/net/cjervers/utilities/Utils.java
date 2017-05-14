@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.cause.NamedCause;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryArchetypes;
 import org.spongepowered.api.item.inventory.property.InventoryDimension;
@@ -16,7 +18,7 @@ import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 
 public class Utils {
 	
-	private Map<String, Shop> shops;
+	private static Map<String, Shop> shops;
 	private static final ChiefShop plugin = ChiefShop.getPlugin();
 	private static ConfigurationNode conf = plugin.getConfig();
 	
@@ -28,13 +30,8 @@ public class Utils {
 	public static void createShops() {
 		try {
 			for (Entry<Object, ? extends ConfigurationNode> entry : conf.getNode("shops").getChildrenMap().entrySet()) {
-				// for (Entry<Object, ? extends ConfigurationNode> entry2 :
-				// entry.getValue().getNode("items")
-				// .getChildrenMap().entrySet()) {
-				//plugin.getLogger().info(entry.getValue().getNode("items").getNode("Cost").getDouble()+"");
 				Shop shop = entry.getValue().getValue(TypeToken.of(Shop.class));
-				//plugin.getLogger().info(shop.getName() + " " + shop.getShopItems());
-				// }
+				shops.put(shop.getName(), shop);
 			}
 		} catch (ObjectMappingException e) {
 			// TODO Auto-generated catch block
@@ -42,8 +39,11 @@ public class Utils {
 		}
 	}
 	
-	public static void openShop(Player player, Shop shop) {
-		
+	public static void openShop(Player player, String shopName) {
+		if(shops.containsKey(shopName)){
+			Shop shop = shops.get(shopName);
+			player.openInventory(shop.getInv(), Cause.of(NamedCause.owner(plugin), NamedCause.source(player)));
+		}
 	}
 	
 }

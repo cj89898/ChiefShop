@@ -6,17 +6,20 @@ import java.nio.file.Path;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.text.Text;
 
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 
-import net.cjervers.utilities.ShopItemSerializer;
+import net.cjervers.commands.ShopCommand;
 import net.cjervers.utilities.Shop;
 import net.cjervers.utilities.ShopItem;
+import net.cjervers.utilities.ShopItemSerializer;
 import net.cjervers.utilities.ShopSerializer;
 import net.cjervers.utilities.Utils;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -48,6 +51,11 @@ public class ChiefShop {
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Shop.class), new ShopSerializer());
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(ShopItem.class), new ShopItemSerializer());
 		Utils.createShops();
+		
+		CommandSpec shop = CommandSpec.builder().description(Text.of("Opens the shop")).executor(new ShopCommand())
+				.build();
+		
+		Sponge.getCommandManager().register(this, shop);
 	}
 	
 	@Inject

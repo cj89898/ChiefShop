@@ -3,11 +3,11 @@ package net.cjervers.utilities;
 import java.util.List;
 
 import org.spongepowered.api.item.inventory.Inventory;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.text.Text;
 
 import net.cjervers.ChiefShop;
-import net.cjervers.utilities.Utils;
 
 public class Shop {
 	
@@ -23,6 +23,9 @@ public class Shop {
 	public void refresh() {
 		inv = Utils.getShopBuilder().property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(name)))
 				.build(ChiefShop.getPlugin());
+		for (ShopItem item : shopItems) {
+			inv.offer(ItemStack.builder().itemType(item.getItemType()).build());
+		}
 	}
 	
 	public String getName() {

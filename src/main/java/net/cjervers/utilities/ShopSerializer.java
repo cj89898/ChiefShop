@@ -17,9 +17,8 @@ public class ShopSerializer implements TypeSerializer<Shop> {
 	public Shop deserialize(TypeToken<?> type, ConfigurationNode value) throws ObjectMappingException {
 		String name = value.getKey().toString();
 		List<ShopItem> shopItems = new ArrayList<>();
-		for (Entry<Object, ? extends ConfigurationNode> item : value.getNode("items").getChildrenMap().entrySet()) {
-			shopItems.add(item.getValue().getNode("items").getValue(TypeToken.of(ShopItem.class)));
-			ChiefShop.getPlugin().getLogger().info(item.getValue().toString());
+		for (ShopItem item : value.getNode("items").getList(TypeToken.of(ShopItem.class))) {
+			shopItems.add(item);
 		}
 		return new Shop(name, shopItems);
 	}

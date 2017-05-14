@@ -1,21 +1,24 @@
 package net.cjervers.utilities;
 
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.item.ItemType;
+
 public class ShopItem {
 	
-	private String itemType;
+	private ItemType itemType;
 	private double cost;
 	private int amount;
 	private String damageValue;
 	
 	public ShopItem(String itemType, double cost, int amount, String damageValue) {
 		super();
-		this.itemType = itemType;
+		this.itemType = Sponge.getRegistry().getType(ItemType.class, itemType).get();
 		this.cost = cost;
 		this.amount = amount;
 		this.damageValue = damageValue;
 	}
 	
-	public String getItemType() {
+	public ItemType getItemType() {
 		return itemType;
 	}
 	
