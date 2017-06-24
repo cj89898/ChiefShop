@@ -35,8 +35,8 @@ public class Shop {
 				quantity = item.getAmount();
 			}
 			ItemStack stack = ItemStack.builder().itemType(item.getItemType()).quantity(quantity).build();
-			ChiefShop.getPlugin().getLogger().warn(stack.offer(Keys.ITEM_LORE, item.getLore())+"");
-			ChiefShop.getPlugin().getLogger().warn(stack.offer(Keys.DISPLAY_NAME, item.getName())+"");
+			stack.offer(Keys.ITEM_LORE, item.getLore());
+			stack.offer(Keys.DISPLAY_NAME, item.getName());
 			inv.offer(stack);
 		}
 	}

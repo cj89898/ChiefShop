@@ -9,6 +9,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.filter.Getter;
 import org.spongepowered.api.event.item.inventory.ChangeInventoryEvent;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
+import org.spongepowered.api.item.inventory.transaction.InventoryTransactionResult.Type;
 import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
 import org.spongepowered.api.item.inventory.type.CarriedInventory;
 import org.spongepowered.api.service.economy.account.UniqueAccount;
@@ -46,9 +47,13 @@ public class ChangeInventoryListener {
 					if (item.getSlot() == cur.getSlot().getProperty(SlotIndex.class, "slotindex").get().getValue()) {
 						if (event.getCause().first(Player.class).isPresent())
 							if (balance >= item.getCost()) {
-								acc.withdraw(ChiefShop.getPlugin().getEconomy().getDefaultCurrency(),
-										BigDecimal.valueOf(item.getCost()), Cause.source(this).build());
-								new GiveAction(item).giveItem(player);
+								if (new GiveAction(item).giveItem(player).getType().equals(Type.FAILURE)) {
+									player.sendMessage(
+											Text.builder("Not enough inventory space!").color(TextColors.RED).build());
+								} else {
+									acc.withdraw(ChiefShop.getPlugin().getEconomy().getDefaultCurrency(),
+											BigDecimal.valueOf(item.getCost()), Cause.source(this).build());
+								}
 							} else {
 								player.sendMessage(Text.builder("Not enough money!").color(TextColors.RED).build());
 							}

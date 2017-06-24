@@ -12,6 +12,7 @@ import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.text.Text;
@@ -54,7 +55,7 @@ public class ChiefShop {
 	}
 	
 	@Listener
-	public void init(GameInitializationEvent event) {
+	public void init(GamePostInitializationEvent event) {
 		plugin = this;
 		
 		createConfig();

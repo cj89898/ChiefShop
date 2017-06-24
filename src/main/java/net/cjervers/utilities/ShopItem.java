@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
@@ -32,12 +33,13 @@ public class ShopItem {
 		this.slot = slot;
 		this.damageValue = damageValue;
 		this.action = action;
+		ItemStack stack = ItemStack.of(this.itemType, 1);
 		if (amount != 1)
 			name = Text.builder(amount + " ").color(TextColors.GOLD)
-					.append(Text.builder(itemType.toString() + "s").color(TextColors.AQUA).build()).build();
+					.append(Text.builder(stack.getTranslation()).color(TextColors.AQUA).append(Text.of("s")).color(TextColors.AQUA).build()).build();
 		else
 			name = Text.builder(amount + " ").color(TextColors.GOLD)
-					.append(Text.builder(itemType.toString()).color(TextColors.AQUA).build()).build();
+					.append(Text.builder(stack.getTranslation()).color(TextColors.AQUA).build()).build();
 		lore.add(Text.builder("Costs: ").color(TextColors.GOLD)
 				.append(Text.builder(cost + "").color(TextColors.GREEN).build()).build());
 	}
