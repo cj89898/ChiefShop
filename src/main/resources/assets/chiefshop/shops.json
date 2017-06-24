@@ -5,12 +5,20 @@
 					"ItemType": "minecraft:diamond_sword",
 					"Amount": 1,
 					"Cost": 50,
-					"Damage": 0
+					"Slot": 0,
+					"Data": {
+						"Action": "give",
+						"Damage": 0
+					}
 				}, {
 					"ItemType": "minecraft:diamond_axe",
 					"Amount": 1,
-					"Cost": 50,
-					"Damage": 0
+					"Cost": 15,
+					"Slot": 1,
+					"Data": {
+						"Action": "give",
+						"Damage": 0
+					}
 				}
 			]
 		},
@@ -19,7 +27,11 @@
 					"ItemType": "minecraft:diamond_pick",
 					"Amount": 1,
 					"Cost": 50,
-					"Damage": 0
+					"Slot": 0,
+					"Data": {
+						"Action": "give",
+						"Damage": 0
+					}
 				}
 			]
 		}

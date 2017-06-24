@@ -1,5 +1,6 @@
 package net.cjervers.utilities;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -18,7 +19,7 @@ import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 
 public class Utils {
 	
-	private static Map<String, Shop> shops;
+	private static Map<String, Shop> shops = new HashMap<String, Shop>();
 	private static final ChiefShop plugin = ChiefShop.getPlugin();
 	private static ConfigurationNode conf = plugin.getConfig();
 	
@@ -44,6 +45,10 @@ public class Utils {
 			Shop shop = shops.get(shopName);
 			player.openInventory(shop.getInv(), Cause.of(NamedCause.owner(plugin), NamedCause.source(player)));
 		}
+	}
+
+	public static Map<String, Shop> getShops() {
+		return shops;
 	}
 	
 }

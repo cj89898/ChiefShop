@@ -17,6 +17,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 
 import net.cjervers.commands.ShopCommand;
+import net.cjervers.events.ChangeInventoryListener;
 import net.cjervers.utilities.Shop;
 import net.cjervers.utilities.ShopItem;
 import net.cjervers.utilities.ShopItemSerializer;
@@ -52,10 +53,12 @@ public class ChiefShop {
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(ShopItem.class), new ShopItemSerializer());
 		Utils.createShops();
 		
+		Sponge.getEventManager().registerListeners(this, new ChangeInventoryListener());
+		
 		CommandSpec shop = CommandSpec.builder().description(Text.of("Opens the shop")).executor(new ShopCommand())
 				.build();
 		
-		Sponge.getCommandManager().register(this, shop);
+		Sponge.getCommandManager().register(this, shop, "chiefshop", "shop");
 	}
 	
 	@Inject
