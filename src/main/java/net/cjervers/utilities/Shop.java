@@ -2,6 +2,7 @@ package net.cjervers.utilities;
 
 import java.util.List;
 
+import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
@@ -24,14 +25,19 @@ public class Shop {
 	public void refresh() {
 		ShopInventoryCarrier carrier = new ShopInventoryCarrier();
 		inv = Utils.getShopBuilder().property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(name)))
-				.withCarrier(carrier)
-				.build(ChiefShop.getPlugin());
+				.withCarrier(carrier).build(ChiefShop.getPlugin());
 		carrier.setInventory(inv);
 		for (ShopItem item : shopItems) {
-			inv.offer(ItemStack.builder()
-					.itemType(item.getItemType())
-					.quantity(item.getAmount())
-					.build());
+			int quantity;
+			if (item.getAmount() > item.getItemType().getMaxStackQuantity()) {
+				quantity = item.getItemType().getMaxStackQuantity();
+			} else {
+				quantity = item.getAmount();
+			}
+			ItemStack stack = ItemStack.builder().itemType(item.getItemType()).quantity(quantity).build();
+			ChiefShop.getPlugin().getLogger().warn(stack.offer(Keys.ITEM_LORE, item.getLore())+"");
+			ChiefShop.getPlugin().getLogger().warn(stack.offer(Keys.DISPLAY_NAME, item.getName())+"");
+			inv.offer(stack);
 		}
 	}
 	

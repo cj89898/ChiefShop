@@ -21,7 +21,6 @@ public class Utils {
 	
 	private static Map<String, Shop> shops = new HashMap<String, Shop>();
 	private static final ChiefShop plugin = ChiefShop.getPlugin();
-	private static ConfigurationNode conf = plugin.getConfig();
 	
 	public static Inventory.Builder getShopBuilder() {
 		return Inventory.builder().of(InventoryArchetypes.CHEST).property(InventoryDimension.PROPERTY_NAME,
@@ -30,13 +29,12 @@ public class Utils {
 	
 	public static void createShops() {
 		shops.clear();
-		plugin.getLogger().warn(shops.toString());
 		try {
-			for (Entry<Object, ? extends ConfigurationNode> entry : conf.getNode("shops").getChildrenMap().entrySet()) {
+			for (Entry<Object, ? extends ConfigurationNode> entry : plugin.getConfig().getNode("shops").getChildrenMap()
+					.entrySet()) {
 				Shop shop = entry.getValue().getValue(TypeToken.of(Shop.class));
 				shops.put(shop.getName(), shop);
 			}
-			plugin.getLogger().warn(""+shops.get("default").getShopItems().get(1).getAmount());
 		} catch (ObjectMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,12 +42,12 @@ public class Utils {
 	}
 	
 	public static void openShop(Player player, String shopName) {
-		if(shops.containsKey(shopName)){
+		if (shops.containsKey(shopName)) {
 			Shop shop = shops.get(shopName);
 			player.openInventory(shop.getInv(), Cause.of(NamedCause.owner(plugin), NamedCause.source(player)));
 		}
 	}
-
+	
 	public static Map<String, Shop> getShops() {
 		return shops;
 	}

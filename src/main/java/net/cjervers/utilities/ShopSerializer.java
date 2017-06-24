@@ -3,6 +3,9 @@ package net.cjervers.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.item.ItemType;
+
 import com.google.common.reflect.TypeToken;
 
 import net.cjervers.ChiefShop;
@@ -17,7 +20,8 @@ public class ShopSerializer implements TypeSerializer<Shop> {
 		String name = value.getKey().toString();
 		List<ShopItem> shopItems = new ArrayList<>();
 		for (ShopItem item : value.getNode("items").getList(TypeToken.of(ShopItem.class))) {
-			shopItems.add(item);
+			if (!item.getItemType().equals(Sponge.getRegistry().getType(ItemType.class, "minecraft:air")))
+				shopItems.add(item);
 		}
 		return new Shop(name, shopItems);
 	}
