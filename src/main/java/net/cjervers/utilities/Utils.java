@@ -29,11 +29,14 @@ public class Utils {
 	}
 	
 	public static void createShops() {
+		shops.clear();
+		plugin.getLogger().warn(shops.toString());
 		try {
 			for (Entry<Object, ? extends ConfigurationNode> entry : conf.getNode("shops").getChildrenMap().entrySet()) {
 				Shop shop = entry.getValue().getValue(TypeToken.of(Shop.class));
 				shops.put(shop.getName(), shop);
 			}
+			plugin.getLogger().warn(""+shops.get("default").getShopItems().get(1).getAmount());
 		} catch (ObjectMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

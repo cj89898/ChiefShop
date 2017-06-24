@@ -57,14 +57,6 @@ public class ChiefShop {
 	public void init(GameInitializationEvent event) {
 		plugin = this;
 		
-		Optional<EconomyService> serviceOpt = Sponge.getServiceManager().provide(EconomyService.class);
-		if (!serviceOpt.isPresent()) {
-			getLogger().warn("No economy service found! ChiefShop will not work correctly!");
-			
-		} else {
-			econ = serviceOpt.get();
-		}
-		
 		createConfig();
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Shop.class), new ShopSerializer());
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(ShopItem.class), new ShopItemSerializer());
@@ -76,6 +68,22 @@ public class ChiefShop {
 				.build();
 		
 		Sponge.getCommandManager().register(this, shop, "chiefshop", "shop");
+		
+		Optional<EconomyService> serviceOpt = Sponge.getServiceManager().provide(EconomyService.class);
+		if (!serviceOpt.isPresent()) {
+			getLogger().warn("No economy service found! ChiefShop will not work correctly!");
+			Sponge.getEventManager().unregisterListeners(this);
+			Sponge.getCommandManager().getOwnedBy(this)
+					.forEach(mapping -> Sponge.getCommandManager().removeMapping(mapping));
+		}
+		econ = serviceOpt.get();
+		
+	}
+	
+	@Listener
+	public void reload(GameReloadEvent event) {
+		createConfig();
+		Utils.createShops();
 	}
 	
 	@Inject
