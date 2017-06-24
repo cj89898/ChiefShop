@@ -3,14 +3,17 @@ package net.cjervers;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.text.Text;
 
 import com.google.common.reflect.TypeToken;
@@ -33,6 +36,7 @@ import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 public class ChiefShop {
 	
 	private static ChiefShop plugin;
+	private static EconomyService econ;
 	
 	@Inject
 	private Logger logger;
@@ -45,9 +49,22 @@ public class ChiefShop {
 		return logger;
 	}
 	
+	public EconomyService getEconomy() {
+		return econ;
+	}
+	
 	@Listener
 	public void init(GameInitializationEvent event) {
 		plugin = this;
+		
+		Optional<EconomyService> serviceOpt = Sponge.getServiceManager().provide(EconomyService.class);
+		if (!serviceOpt.isPresent()) {
+			getLogger().warn("No economy service found! ChiefShop will not work correctly!");
+			
+		} else {
+			econ = serviceOpt.get();
+		}
+		
 		createConfig();
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Shop.class), new ShopSerializer());
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(ShopItem.class), new ShopItemSerializer());
