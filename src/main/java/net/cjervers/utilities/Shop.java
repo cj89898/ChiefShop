@@ -3,6 +3,7 @@ package net.cjervers.utilities;
 import java.util.List;
 
 import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.manipulator.mutable.item.EnchantmentData;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
@@ -39,6 +40,9 @@ public class Shop {
 			ItemStack stack = ItemStack.builder().itemType(item.getItemType()).quantity(quantity).build();
 			stack.offer(Keys.ITEM_LORE, item.getLore());
 			stack.offer(Keys.DISPLAY_NAME, item.getName());
+			ChiefShop.getPlugin().getLogger().warn(item.getEnchantmentData()+"");
+			if (item.getEnchantmentData() != null)
+				stack.offer(item.getEnchantmentData());
 			inv.offer(stack);
 		}
 	}
@@ -55,7 +59,7 @@ public class Shop {
 		return inv;
 	}
 	
-	public boolean permRequired(){
+	public boolean permRequired() {
 		return permRequired;
 	}
 }

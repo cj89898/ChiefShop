@@ -2,8 +2,13 @@ package net.cjervers.utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.data.manipulator.mutable.item.EnchantmentData;
+import org.spongepowered.api.data.meta.ItemEnchantment;
+import org.spongepowered.api.item.Enchantment;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
@@ -22,8 +27,10 @@ public class ShopItem {
 	private ItemAction action;
 	private List<Text> lore = new ArrayList<Text>();
 	private Text name;
+	private EnchantmentData enchantmentData;
 	
-	public ShopItem(String itemType, double cost, int amount, int slot, String damageValue, ItemAction action) {
+	public ShopItem(String itemType, double cost, int amount, int slot, String damageValue, ItemAction action,
+			Map<Enchantment, Integer> enchantments) {
 		super();
 		if (Sponge.getRegistry().getType(ItemType.class, itemType).isPresent())
 			this.itemType = Sponge.getRegistry().getType(ItemType.class, itemType).get();
@@ -45,6 +52,12 @@ public class ShopItem {
 					.append(Text.builder(stack.getTranslation()).color(TextColors.AQUA).build()).build();
 		lore.add(Text.builder("Costs: ").color(TextColors.GOLD)
 				.append(Text.builder(cost + "").color(TextColors.GREEN).build()).build());
+		
+		for (Entry<Enchantment, Integer> enchantment : enchantments.entrySet()) {
+			enchantmentData.set(enchantmentData.enchantments()
+					.add(new ItemEnchantment(enchantment.getKey(), enchantment.getValue())));
+		}
+		
 	}
 	
 	public ItemType getItemType() {
@@ -77,5 +90,9 @@ public class ShopItem {
 	
 	public List<Text> getLore() {
 		return lore;
+	}
+	
+	public EnchantmentData getEnchantmentData() {
+		return enchantmentData;
 	}
 }

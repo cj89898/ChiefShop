@@ -1,7 +1,15 @@
 package net.cjervers.utilities;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.item.Enchantment;
+
 import com.google.common.reflect.TypeToken;
 
+import net.cjervers.ChiefShop;
 import net.cjervers.actions.ItemAction;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -17,7 +25,20 @@ public class ShopItemSerializer implements TypeSerializer<ShopItem> {
 		int slot = value.getNode("Slot").getInt();
 		String damageValue = value.getNode("Data").getNode("Damage").getString();
 		ItemAction action = value.getNode("Data").getNode("Action").getValue(TypeToken.of(ItemAction.class));
-		return new ShopItem(itemType, cost, amount, slot, damageValue, action);
+		
+		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
+		
+		ChiefShop.getPlugin().getLogger().warn(value.getNode("Data").getNode("Enchantments").getChildrenList().toString());
+		for (ConfigurationNode enchantmentInfo : value.getNode("Data").getNode("Enchantments").getChildrenList()) {
+			
+			ChiefShop.getPlugin().getLogger().warn(enchantmentInfo.getKey().toString()+" level: "+enchantmentInfo.getInt());
+			if (Sponge.getRegistry().getType(Enchantment.class, enchantmentInfo.getKey().toString()).isPresent()) {
+				Enchantment enchantment = Sponge.getRegistry()
+						.getType(Enchantment.class, enchantmentInfo.getKey().toString()).get();
+				enchantments.put(enchantment, enchantmentInfo.getInt());
+			}
+		}
+		return new ShopItem(itemType, cost, amount, slot, damageValue, action, enchantments);
 	}
 	
 	@Override
