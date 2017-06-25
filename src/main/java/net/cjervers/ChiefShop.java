@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
@@ -65,10 +66,12 @@ public class ChiefShop {
 		
 		Sponge.getEventManager().registerListeners(this, new ChangeInventoryListener());
 		
-		CommandSpec shop = CommandSpec.builder().description(Text.of("Opens the shop")).executor(new ShopCommand())
+		CommandSpec shopCmd = CommandSpec.builder().description(Text.of("Opens a shop"))
+				.arguments(GenericArguments.optional(GenericArguments.string(Text.of("shop name"))))
+				.executor(new ShopCommand())
 				.build();
 		
-		Sponge.getCommandManager().register(this, shop, "chiefshop", "shop");
+		Sponge.getCommandManager().register(this, shopCmd, "chiefshop", "shop");
 		
 		Optional<EconomyService> serviceOpt = Sponge.getServiceManager().provide(EconomyService.class);
 		if (!serviceOpt.isPresent()) {

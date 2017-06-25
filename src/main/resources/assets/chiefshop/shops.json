@@ -1,6 +1,7 @@
 {
 	"shops": {
 		"default": {
+			"permission-required": false,
 			"items": [{
 					"ItemType": "minecraft:diamond_sword",
 					"Amount": 1,
@@ -23,6 +24,7 @@
 			]
 		},
 		"example2": {
+			"permission-required": true,
 			"items": [{
 					"ItemType": "minecraft:diamond_pick",
 					"Amount": 1,

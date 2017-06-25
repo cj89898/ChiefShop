@@ -10,16 +10,19 @@ import org.spongepowered.api.text.Text;
 
 import net.cjervers.utilities.Utils;
 
-
 public class ShopCommand implements CommandExecutor {
 	
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-		if(src instanceof Player){
+		if (src instanceof Player) {
 			Player p = (Player) src;
-			Utils.openShop(p, "default");
+			if (args.hasAny("shop name")) {
+				Utils.openShop(p, args.<String>getOne("shop name").get());
+			} else {
+				Utils.openShop(p, "default");
+			}
 			return CommandResult.success();
-		}else{
+		} else {
 			src.sendMessage(Text.of("You must be a player to use this command!"));
 			return CommandResult.success();
 		}

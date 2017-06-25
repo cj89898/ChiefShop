@@ -9,6 +9,7 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
+import net.cjervers.ChiefShop;
 import net.cjervers.actions.ItemAction;
 
 public class ShopItem {
@@ -26,8 +27,10 @@ public class ShopItem {
 		super();
 		if (Sponge.getRegistry().getType(ItemType.class, itemType).isPresent())
 			this.itemType = Sponge.getRegistry().getType(ItemType.class, itemType).get();
-		else
+		else {
 			this.itemType = Sponge.getRegistry().getType(ItemType.class, "minecraft:air").get();
+			ChiefShop.getPlugin().getLogger().warn(itemType + " is not a valid type!");
+		}
 		this.cost = cost;
 		this.amount = amount;
 		this.slot = slot;
@@ -35,8 +38,8 @@ public class ShopItem {
 		this.action = action;
 		ItemStack stack = ItemStack.of(this.itemType, 1);
 		if (amount != 1)
-			name = Text.builder(amount + " ").color(TextColors.GOLD)
-					.append(Text.builder(stack.getTranslation()).color(TextColors.AQUA).append(Text.of("s")).color(TextColors.AQUA).build()).build();
+			name = Text.builder(amount + " ").color(TextColors.GOLD).append(Text.builder(stack.getTranslation())
+					.color(TextColors.AQUA).append(Text.of("s")).color(TextColors.AQUA).build()).build();
 		else
 			name = Text.builder(amount + " ").color(TextColors.GOLD)
 					.append(Text.builder(stack.getTranslation()).color(TextColors.AQUA).build()).build();

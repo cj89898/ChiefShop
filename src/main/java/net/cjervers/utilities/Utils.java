@@ -10,6 +10,8 @@ import org.spongepowered.api.event.cause.NamedCause;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryArchetypes;
 import org.spongepowered.api.item.inventory.property.InventoryDimension;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 
 import com.google.common.reflect.TypeToken;
 
@@ -44,7 +46,13 @@ public class Utils {
 	public static void openShop(Player player, String shopName) {
 		if (shops.containsKey(shopName)) {
 			Shop shop = shops.get(shopName);
-			player.openInventory(shop.getInv(), Cause.of(NamedCause.owner(plugin), NamedCause.source(player)));
+			if (!shop.permRequired() || player.hasPermission("chiefshop.shop." + shopName)) {
+				player.openInventory(shop.getInv(), Cause.of(NamedCause.owner(plugin), NamedCause.source(player)));
+			}else{
+				player.sendMessage(Text.builder("No permission!").color(TextColors.RED).build());
+			}
+		}else {
+			player.sendMessage(Text.builder("Invalid shop name!").color(TextColors.RED).build());
 		}
 	}
 	

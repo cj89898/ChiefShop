@@ -15,10 +15,12 @@ public class Shop {
 	private String name;
 	private Inventory inv;
 	private List<ShopItem> shopItems;
+	private boolean permRequired;
 	
-	public Shop(String name, List<ShopItem> shopItems) {
+	public Shop(String name, List<ShopItem> shopItems, boolean needsPerm) {
 		this.name = name;
 		this.shopItems = shopItems;
+		this.permRequired = needsPerm;
 		refresh();
 	}
 	
@@ -51,5 +53,9 @@ public class Shop {
 	
 	public Inventory getInv() {
 		return inv;
+	}
+	
+	public boolean permRequired(){
+		return permRequired;
 	}
 }

@@ -3,12 +3,10 @@ package net.cjervers.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.ItemTypes;
 
 import com.google.common.reflect.TypeToken;
 
-import net.cjervers.ChiefShop;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
@@ -18,12 +16,14 @@ public class ShopSerializer implements TypeSerializer<Shop> {
 	@Override
 	public Shop deserialize(TypeToken<?> type, ConfigurationNode value) throws ObjectMappingException {
 		String name = value.getKey().toString();
+		boolean needsPerm = value.getNode("permission-required").isVirtual() ? false
+				: value.getNode("permission-required").getBoolean();
 		List<ShopItem> shopItems = new ArrayList<>();
 		for (ShopItem item : value.getNode("items").getList(TypeToken.of(ShopItem.class))) {
-			if (!item.getItemType().equals(Sponge.getRegistry().getType(ItemType.class, "minecraft:air")))
+			if (!item.getItemType().equals(ItemTypes.AIR))
 				shopItems.add(item);
 		}
-		return new Shop(name, shopItems);
+		return new Shop(name, shopItems, needsPerm);
 	}
 	
 	@Override
