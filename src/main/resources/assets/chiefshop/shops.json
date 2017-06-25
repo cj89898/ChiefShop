@@ -1,41 +1,47 @@
 {
-	"shops": {
-		"default": {
-			"permission-required": false,
-			"items": [{
-					"ItemType": "minecraft:diamond_sword",
-					"Amount": 1,
-					"Cost": 50,
-					"Slot": 0,
-					"Data": {
-						"Action": "give",
-						"Damage": 0
-					}
-				}, {
-					"ItemType": "minecraft:diamond_axe",
-					"Amount": 1,
-					"Cost": 15,
-					"Slot": 1,
-					"Data": {
-						"Action": "give",
-						"Damage": 0
-					}
-				}
-			]
-		},
-		"example2": {
-			"permission-required": true,
-			"items": [{
-					"ItemType": "minecraft:diamond_pick",
-					"Amount": 1,
-					"Cost": 50,
-					"Slot": 0,
-					"Data": {
-						"Action": "give",
-						"Damage": 0
-					}
-				}
-			]
-		}
-	}
+  "shops": {
+    "default": {
+      "permission-required": false,
+      "items": [
+        {
+          "ItemType": "minecraft:diamond_sword",
+          "Amount": 1,
+          "Cost": 50,
+          "Slot": 0,
+          "Data": {
+            "Action": "give",
+            "Damage": 0
+          }
+        },
+        {
+          "ItemType": "minecraft:diamond_axe",
+          "Amount": 5,
+          "Cost": 15,
+          "Slot": 1,
+          "Data": {
+            "Action": "give",
+            "Damage": 0
+          }
+        }
+      ]
+    },
+    "example2": {
+      "permission-required": true,
+      "items": [
+        {
+          "ItemType": "minecraft:diamond_pickaxe",
+          "Amount": 1,
+          "Cost": 50,
+          "Slot": 0,
+          "Data": {
+            "Action": "give",
+            "Damage": 0,
+            "Enchantments": {
+              "minecraft:unbreaking": 3
+            }
+          }
+        }
+      ]
+    }
+  }
 }
